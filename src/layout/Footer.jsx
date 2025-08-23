@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function Footer(){
      return ( <footer>
                 <nav>
@@ -6,21 +8,21 @@ function Footer(){
                     </ul>
                     <ul>
                         <li><h3>Let's do it</h3></li>
-                        <li><a href="">Newsletter signup</a></li>
-                        <li><a href="">Book a consultation</a></li>
-                        <li><a href="">Portfolio showcase</a></li>
+                        <li><Link to="">Newsletter signup</Link></li>
+                        <li><Link to="/booking">Book a consultation</Link></li>
+                        <li><Link to="">Portfolio showcase</Link></li>
                     </ul>
                     <ul>
                         <li><h3>Navigation & Quick Links</h3></li>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Services</a></li>
-                        <li><a href="">FAQs</a></li>
+                        <li><Link to="/aboutus">About Us</Link></li>
+                        <li><Link to="/services">Services</Link></li>
+                        <li><Link to="/faq">FAQs</Link></li>
                     </ul>
                     <ul>
                         <li><h3>Contact details</h3></li>
-                        <li><a href="">ndongajared@gmail.com</a></li>
+                        <li><Link to="">ndongajared@gmail.com</Link></li>
                         <li><h4>Tel: +375-25-697-8184</h4></li>
-                        <li><a href="https://www.linkedin.com/in/lorisjaredndonga/">My LinkedIn</a></li>
+                        <li><Link to="https://www.linkedin.com/in/lorisjaredndonga/">My LinkedIn</Link></li>
                     </ul>
                     
                 </nav>
