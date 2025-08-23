@@ -1,4 +1,4 @@
-function Contact(){
+function ContactUs(){
     return (
         <div id="Contact">
             <section>
@@ -41,4 +41,4 @@ function Contact(){
     )
 }
 
-export default Contact
+export default ContactUs;

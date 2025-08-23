@@ -1,17 +1,21 @@
 // import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import Header from './layout/Header.jsx';
+import Footer from './layout/Footer.jsx';
+import Home from './Home/home.jsx';
+import ContactUs from './ContactUS/contactus.jsx';
 
 function App() {
   return (
-    <div id="act">
-      <section>
-        <img src="../src/assets/videoPH.png" alt="" />
-      </section>
-      <section>
-          <button>Let’s Build Your Website</button>
-          <button>Start Learning Today!</button>
-          <button>Let’s Talk About Your Needs</button>
-      </section>
-    </div>
+    <>
+    <Header />
+      <Routes>
+        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="/" element={<Home/>} />
+        <Route path="/contactUs" element={<ContactUs />} />
+      </Routes>
+      <Footer />
+    </>
   )
 }
 
