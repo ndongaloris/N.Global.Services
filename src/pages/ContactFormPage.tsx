@@ -8,6 +8,8 @@ import { Textarea } from "../components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import emailjs from "emailjs-com";
+
 
 interface ContactFormPageProps {
   onNavigate: (page: string) => void;
@@ -47,12 +49,21 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('Form submitted:', data);
-    setIsSubmitting(false);
+  try {
+    await emailjs.send(
+      "service_hgl1v1s",
+      "template_dclvsjl",
+      data, // 👈 all your form fields
+      "lCJuic6gpBo4AMmv_"
+    );
     setIsSubmitted(true);
-  };
+  } catch (err) {
+    console.error("EmailJS error:", err);
+    setIsSubmitted(false);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const getTitle = () => {
     switch (formType) {
