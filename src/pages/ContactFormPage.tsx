@@ -7,7 +7,7 @@ import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
-import { useForm } from "react-hook-form@7.55.0";
+import { Controller, useForm } from "react-hook-form";
 
 interface ContactFormPageProps {
   onNavigate: (page: string) => void;
@@ -35,12 +35,13 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
   const { t } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
     watch
   } = useForm<FormData>();
 
@@ -106,8 +107,8 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
   return (
     <div className="min-h-screen py-20" style={{ backgroundColor: 'var(--mint-cream)' }}>
       <div className="container mx-auto px-6">
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           onClick={() => onNavigate('home')}
           className="mb-6"
           style={{ color: 'var(--gunmetal)' }}
@@ -124,7 +125,7 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
               {getSubtitle()}
             </p>
           </CardHeader>
-          
+
           <CardContent className="p-8 pt-0">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Basic Information */}
@@ -168,7 +169,7 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                   <Input
                     id="email"
                     type="email"
-                    {...register("email", { 
+                    {...register("email", {
                       required: true,
                       pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
                     })}
@@ -219,31 +220,50 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                       <Label htmlFor="language" style={{ color: 'var(--gunmetal)' }}>
                         {t('form.language')} <span style={{ color: 'red' }}>*</span>
                       </Label>
-                      <Select onValueChange={(value) => setValue('language', value)}>
-                        <SelectTrigger className="mt-2">
-                          <SelectValue placeholder={t('form.language')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="french">{t('form.language.french')}</SelectItem>
-                          <SelectItem value="english">{t('form.language.english')}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="language"
+                        control={control}
+                        rules={{ required: "language is required" }}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="mt-2">
+                              <SelectValue placeholder={t('form.language')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="french">{t('form.language.french')}</SelectItem>
+                              <SelectItem value="english">{t('form.language.english')}</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          )}
+                      />
+                      {errors.language && (
+                      <p style={{ color: "red" }}>{errors.language.message}</p>
+                    )}
                     </div>
 
                     <div>
                       <Label htmlFor="level" style={{ color: 'var(--gunmetal)' }}>
                         {t('form.level')} <span style={{ color: 'red' }}>*</span>
                       </Label>
-                      <Select onValueChange={(value) => setValue('level', value)}>
-                        <SelectTrigger className="mt-2">
-                          <SelectValue placeholder={t('form.level')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="beginner">{t('form.level.beginner')}</SelectItem>
-                          <SelectItem value="intermediate">{t('form.level.intermediate')}</SelectItem>
-                          <SelectItem value="advanced">{t('form.level.advanced')}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="level"
+                        control={control}
+                        rules={{ required: "level is required" }}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="mt-2">
+                              <SelectValue placeholder={t('form.level')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="beginner">{t('form.level.beginner')}</SelectItem>
+                              <SelectItem value="intermediate">{t('form.level.intermediate')}</SelectItem>
+                              <SelectItem value="advanced">{t('form.level.advanced')}</SelectItem>
+                            </SelectContent>
+                          </Select>)}
+                      />
+                      {errors.level && (
+                      <p style={{ color: "red" }}>{errors.level.message}</p>
+                    )}
                     </div>
                   </div>
 
@@ -251,17 +271,27 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                     <Label htmlFor="schedule" style={{ color: 'var(--gunmetal)' }}>
                       {t('form.schedule')} <span style={{ color: 'red' }}>*</span>
                     </Label>
-                    <Select onValueChange={(value) => setValue('schedule', value)}>
-                      <SelectTrigger className="mt-2">
-                        <SelectValue placeholder={t('form.schedule')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="weekday">{t('form.schedule.weekday')}</SelectItem>
-                        <SelectItem value="weeknight">{t('form.schedule.weeknight')}</SelectItem>
-                        <SelectItem value="weekend">{t('form.schedule.weekend')}</SelectItem>
-                        <SelectItem value="flexible">{t('form.schedule.flexible')}</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="schedule"
+                      control={control}
+                      rules={{ required: "Schedule is required" }}
+                      render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                          <SelectTrigger className="mt-2">
+                            <SelectValue placeholder={t('form.schedule')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="weekday">{t('form.schedule.weekday')}</SelectItem>
+                            <SelectItem value="weeknight">{t('form.schedule.weeknight')}</SelectItem>
+                            <SelectItem value="weekend">{t('form.schedule.weekend')}</SelectItem>
+                            <SelectItem value="flexible">{t('form.schedule.flexible')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    {errors.schedule && (
+                      <p style={{ color: "red" }}>{errors.schedule.message}</p>
+                    )}
                   </div>
                 </>
               )}
@@ -274,34 +304,53 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                       <Label htmlFor="projectType" style={{ color: 'var(--gunmetal)' }}>
                         {t('form.projecttype')} <span style={{ color: 'red' }}>*</span>
                       </Label>
-                      <Select onValueChange={(value) => setValue('projectType', value)}>
-                        <SelectTrigger className="mt-2">
-                          <SelectValue placeholder={t('form.projecttype')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="business">{t('form.projecttype.business')}</SelectItem>
-                          <SelectItem value="ecommerce">{t('form.projecttype.ecommerce')}</SelectItem>
-                          <SelectItem value="portfolio">{t('form.projecttype.portfolio')}</SelectItem>
-                          <SelectItem value="custom">{t('form.projecttype.custom')}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="projectType"
+                        control={control}
+                        rules={{ required: "project type is required" }}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="mt-2">
+                              <SelectValue placeholder={t('form.projecttype')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="business">{t('form.projecttype.business')}</SelectItem>
+                              <SelectItem value="ecommerce">{t('form.projecttype.ecommerce')}</SelectItem>
+                              <SelectItem value="portfolio">{t('form.projecttype.portfolio')}</SelectItem>
+                              <SelectItem value="custom">{t('form.projecttype.custom')}</SelectItem>
+                            </SelectContent>
+                          </Select>)}
+                      />
+                      {errors.projectType && (
+                      <p style={{ color: "red" }}>{errors.projectType.message}</p>
+                    )}
                     </div>
 
                     <div>
                       <Label htmlFor="budget" style={{ color: 'var(--gunmetal)' }}>
                         {t('form.budget')} <span style={{ color: 'red' }}>*</span>
                       </Label>
-                      <Select onValueChange={(value) => setValue('budget', value)}>
-                        <SelectTrigger className="mt-2">
-                          <SelectValue placeholder={t('form.budget')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="small">{t('form.budget.small')}</SelectItem>
-                          <SelectItem value="medium">{t('form.budget.medium')}</SelectItem>
-                          <SelectItem value="large">{t('form.budget.large')}</SelectItem>
-                          <SelectItem value="enterprise">{t('form.budget.enterprise')}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="budget"
+                        control={control}
+                        rules={{ required: "budget is required" }}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="mt-2">
+                              <SelectValue placeholder={t('form.budget')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="small">{t('form.budget.small')}</SelectItem>
+                              <SelectItem value="medium">{t('form.budget.medium')}</SelectItem>
+                              <SelectItem value="large">{t('form.budget.large')}</SelectItem>
+                              <SelectItem value="enterprise">{t('form.budget.enterprise')}</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      {errors.budget && (
+                      <p style={{ color: "red" }}>{errors.budget.message}</p>
+                    )}
                     </div>
                   </div>
 
@@ -309,17 +358,27 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                     <Label htmlFor="timeline" style={{ color: 'var(--gunmetal)' }}>
                       {t('form.timeline')} <span style={{ color: 'red' }}>*</span>
                     </Label>
-                    <Select onValueChange={(value) => setValue('timeline', value)}>
-                      <SelectTrigger className="mt-2">
-                        <SelectValue placeholder={t('form.timeline')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="urgent">{t('form.timeline.urgent')}</SelectItem>
-                        <SelectItem value="short">{t('form.timeline.short')}</SelectItem>
-                        <SelectItem value="medium">{t('form.timeline.medium')}</SelectItem>
-                        <SelectItem value="flexible">{t('form.timeline.flexible')}</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="timeline"
+                      control={control}
+                      rules={{ required: "timeline is required" }}
+                      render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                          <SelectTrigger className="mt-2">
+                            <SelectValue placeholder={t('form.timeline')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="urgent">{t('form.timeline.urgent')}</SelectItem>
+                            <SelectItem value="short">{t('form.timeline.short')}</SelectItem>
+                            <SelectItem value="medium">{t('form.timeline.medium')}</SelectItem>
+                            <SelectItem value="flexible">{t('form.timeline.flexible')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                  {errors.timeline && (
+                      <p style={{ color: "red" }}>{errors.timeline.message}</p>
+                    )}
                   </div>
                 </>
               )}
@@ -332,34 +391,55 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                       <Label htmlFor="interest" style={{ color: 'var(--gunmetal)' }}>
                         {t('form.interest')} <span style={{ color: 'red' }}>*</span>
                       </Label>
-                      <Select onValueChange={(value) => setValue('interest', value)}>
-                        <SelectTrigger className="mt-2">
-                          <SelectValue placeholder={t('form.interest')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="career">{t('form.interest.career')}</SelectItem>
-                          <SelectItem value="network">{t('form.interest.network')}</SelectItem>
-                          <SelectItem value="partner">{t('form.interest.partner')}</SelectItem>
-                          <SelectItem value="consult">{t('form.interest.consult')}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="interest"
+                        control={control}
+                        rules={{ required: "interest is required" }}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="mt-2">
+                              <SelectValue placeholder={t('form.interest')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="career">{t('form.interest.career')}</SelectItem>
+                              <SelectItem value="network">{t('form.interest.network')}</SelectItem>
+                              <SelectItem value="partner">{t('form.interest.partner')}</SelectItem>
+                              <SelectItem value="consult">{t('form.interest.consult')}</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                    {errors.interest && (
+                      <p style={{ color: "red" }}>{errors.interest.message}</p>
+                    )}
                     </div>
 
                     <div>
                       <Label htmlFor="experience" style={{ color: 'var(--gunmetal)' }}>
                         {t('form.experience')} <span style={{ color: 'red' }}>*</span>
                       </Label>
-                      <Select onValueChange={(value) => setValue('experience', value)}>
-                        <SelectTrigger className="mt-2">
-                          <SelectValue placeholder={t('form.experience')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="student">{t('form.experience.student')}</SelectItem>
-                          <SelectItem value="mid">{t('form.experience.mid')}</SelectItem>
-                          <SelectItem value="senior">{t('form.experience.senior')}</SelectItem>
-                          <SelectItem value="executive">{t('form.experience.executive')}</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="experience"
+                        control={control}
+                        rules={{ required: "Experience is required" }}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="mt-2">
+                              <SelectValue placeholder={t("form.experience")} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="student">{t("form.experience.student")}</SelectItem>
+                              <SelectItem value="mid">{t("form.experience.mid")}</SelectItem>
+                              <SelectItem value="senior">{t("form.experience.senior")}</SelectItem>
+                              <SelectItem value="executive">{t("form.experience.executive")}</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+
+                      {errors.experience && (
+                        <p style={{ color: "red" }}>{errors.experience.message}</p>
+                      )}
                     </div>
                   </div>
                 </>
@@ -377,11 +457,11 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                   className="mt-2"
                   style={{ borderColor: errors.message ? 'red' : 'var(--cadet-gray)' }}
                   placeholder={
-                    formType === 'enroll' 
+                    formType === 'enroll'
                       ? "Tell us about your language learning goals..."
                       : formType === 'quote'
-                      ? "Describe your project in detail..."
-                      : "Share your professional goals and what you're looking for..."
+                        ? "Describe your project in detail..."
+                        : "Share your professional goals and what you're looking for..."
                   }
                 />
                 {errors.message && (
@@ -395,8 +475,8 @@ export default function ContactFormPage({ onNavigate, formType }: ContactFormPag
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full py-6 transition-all duration-300 hover:scale-105"
-                  style={{ 
-                    backgroundColor: isSubmitting ? 'var(--davys-gray)' : 'var(--gunmetal)', 
+                  style={{
+                    backgroundColor: isSubmitting ? 'var(--davys-gray)' : 'var(--gunmetal)',
                     color: 'var(--mint-cream)',
                     fontSize: '1.125rem'
                   }}

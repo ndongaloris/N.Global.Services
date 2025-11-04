@@ -32,11 +32,11 @@ export default function Footer() {
                   {t('nav.about')}
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#contact" className="transition-colors" style={{ color: 'var(--cadet-gray)' }}>
                   {t('nav.contact')}
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           
@@ -47,16 +47,16 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5" style={{ color: 'var(--cadet-gray)' }} />
-                <span style={{ color: 'var(--cadet-gray)' }}>info@nglobalservices.com</span>
+                <span style={{ color: 'var(--cadet-gray)' }}>nglobalservices.hq@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5" style={{ color: 'var(--cadet-gray)' }} />
-                <span style={{ color: 'var(--cadet-gray)' }}>+1 (555) 123-4567</span>
+                <span style={{ color: 'var(--cadet-gray)' }}>+242 05 533 33 36</span>
               </div>
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5" style={{ color: 'var(--cadet-gray)' }} />
                 <span style={{ color: 'var(--cadet-gray)' }}>Global Services HQ</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

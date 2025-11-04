@@ -44,7 +44,7 @@ export default function Hero() {
               className="transition-all duration-300 hover:scale-105"
               style={{ 
                 borderColor: 'var(--mint-cream)', 
-                color: 'var(--mint-cream)',
+                color: 'var(--night)',
                 padding: '1.5rem 2rem'
               }}
             >

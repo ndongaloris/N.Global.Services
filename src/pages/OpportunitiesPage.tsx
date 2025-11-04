@@ -62,15 +62,15 @@ export default function OpportunitiesPage({ onNavigate }: OpportunitiesPageProps
       {/* Hero Section */}
       <section className="relative py-20" style={{ backgroundColor: 'var(--gunmetal)' }}>
         <div className="container mx-auto px-6">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => onNavigate('home')}
             className="mb-6"
             style={{ color: 'var(--mint-cream)' }}
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> {t('common.back')}
           </Button>
-          
+
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="mb-6" style={{ color: 'var(--mint-cream)', fontSize: '3rem' }}>
               {t('opp.page.hero.title')}
@@ -88,7 +88,7 @@ export default function OpportunitiesPage({ onNavigate }: OpportunitiesPageProps
           <h2 className="text-center mb-12" style={{ color: 'var(--gunmetal)', fontSize: '2.5rem' }}>
             {t('opp.page.services.title')}
           </h2>
-          
+
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {services.map((service, index) => (
               <Card key={index} className="border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
@@ -113,7 +113,7 @@ export default function OpportunitiesPage({ onNavigate }: OpportunitiesPageProps
       <section className="py-16" style={{ backgroundColor: 'white' }}>
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <ImageWithFallback 
+            <ImageWithFallback
               src="https://images.unsplash.com/photo-1698047681820-f26b00b6c639?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMG1lZXRpbmclMjBoYW5kc2hha2V8ZW58MXx8fHwxNzYxMzg4MzY5fDA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Business Opportunities"
               className="w-full rounded-lg shadow-2xl"
@@ -128,7 +128,7 @@ export default function OpportunitiesPage({ onNavigate }: OpportunitiesPageProps
           <h2 className="text-center mb-12" style={{ color: 'var(--gunmetal)', fontSize: '2.5rem' }}>
             {t('opp.page.benefits.title')}
           </h2>
-          
+
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {benefits.map((benefit, index) => (
               <div key={index} className="flex gap-4 p-6 rounded-lg" style={{ backgroundColor: 'white' }}>
@@ -181,31 +181,36 @@ export default function OpportunitiesPage({ onNavigate }: OpportunitiesPageProps
             Join our network and discover opportunities that align with your goals
           </p>
           <div className="flex gap-4 justify-center">
-            <Button 
+            <Button
               onClick={() => onNavigate('apply')}
               size="lg"
               className="transition-all duration-300 hover:scale-105"
-              style={{ 
-                backgroundColor: 'var(--gunmetal)', 
+              style={{
+                backgroundColor: 'var(--gunmetal)',
                 color: 'var(--mint-cream)',
                 padding: '1.5rem 3rem'
               }}
             >
               {t('opp.page.apply')}
             </Button>
-            <Button 
-              onClick={() => onNavigate('apply')}
-              size="lg"
-              variant="outline"
-              className="transition-all duration-300 hover:scale-105"
-              style={{ 
-                borderColor: 'var(--gunmetal)', 
-                color: 'var(--gunmetal)',
-                padding: '1.5rem 3rem'
-              }}
+            <a 
+            href="https://calendly.com/nglobalservices-hq/30min"
+            target="_blank"
             >
-              {t('opp.page.schedule')}
-            </Button>
+              <Button
+                // onClick={() => onNavigate('apply')}
+                size="lg"
+                variant="outline"
+                className="transition-all duration-300 hover:scale-105"
+                style={{
+                  borderColor: 'var(--gunmetal)',
+                  color: 'var(--gunmetal)',
+                  padding: '1.5rem 3rem'
+                }}
+              >
+                {t('opp.page.schedule')}
+              </Button>
+            </a>
           </div>
         </div>
       </section>

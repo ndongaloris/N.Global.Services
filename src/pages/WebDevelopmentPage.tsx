@@ -64,15 +64,15 @@ export default function WebDevelopmentPage({ onNavigate }: WebDevelopmentPagePro
       {/* Hero Section */}
       <section className="relative py-20" style={{ backgroundColor: 'var(--gunmetal)' }}>
         <div className="container mx-auto px-6">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => onNavigate('home')}
             className="mb-6"
             style={{ color: 'var(--mint-cream)' }}
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> {t('common.back')}
           </Button>
-          
+
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="mb-6" style={{ color: 'var(--mint-cream)', fontSize: '3rem' }}>
               {t('web.page.hero.title')}
@@ -90,7 +90,7 @@ export default function WebDevelopmentPage({ onNavigate }: WebDevelopmentPagePro
           <h2 className="text-center mb-12" style={{ color: 'var(--gunmetal)', fontSize: '2.5rem' }}>
             {t('web.page.services.title')}
           </h2>
-          
+
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {services.map((service, index) => (
               <Card key={index} className="border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
@@ -117,7 +117,7 @@ export default function WebDevelopmentPage({ onNavigate }: WebDevelopmentPagePro
           <h2 className="text-center mb-12" style={{ color: 'var(--gunmetal)', fontSize: '2.5rem' }}>
             {t('web.page.process.title')}
           </h2>
-          
+
           <div className="max-w-4xl mx-auto">
             {process.map((step, index) => (
               <div key={index} className="flex gap-6 mb-8">
@@ -148,11 +148,11 @@ export default function WebDevelopmentPage({ onNavigate }: WebDevelopmentPagePro
           <h2 className="text-center mb-12" style={{ color: 'var(--gunmetal)', fontSize: '2.5rem' }}>
             {t('web.page.tech.title')}
           </h2>
-          
+
           <div className="flex flex-wrap gap-4 justify-center max-w-4xl mx-auto">
             {technologies.map((tech, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="px-6 py-3 rounded-full"
                 style={{ backgroundColor: 'white', border: '2px solid var(--cadet-gray)' }}
               >
@@ -162,7 +162,7 @@ export default function WebDevelopmentPage({ onNavigate }: WebDevelopmentPagePro
           </div>
 
           <div className="text-center mt-12">
-            <ImageWithFallback 
+            <ImageWithFallback
               src="https://images.unsplash.com/photo-1630283017802-785b7aff9aac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzYxNDE3MjUzfDA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="Web Development"
               className="w-full max-w-4xl mx-auto rounded-lg shadow-2xl"
@@ -181,30 +181,34 @@ export default function WebDevelopmentPage({ onNavigate }: WebDevelopmentPagePro
             Let's bring your vision to life with a custom website that drives results
           </p>
           <div className="flex gap-4 justify-center">
-            <Button 
+            <Button
               onClick={() => onNavigate('quote')}
               size="lg"
               className="transition-all duration-300 hover:scale-105"
-              style={{ 
-                backgroundColor: 'var(--cadet-gray)', 
+              style={{
+                backgroundColor: 'var(--cadet-gray)',
                 color: 'var(--night)',
                 padding: '1.5rem 3rem'
               }}
             >
               {t('web.page.quote')}
             </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="transition-all duration-300 hover:scale-105"
-              style={{ 
-                borderColor: 'var(--mint-cream)', 
-                color: 'var(--mint-cream)',
-                padding: '1.5rem 3rem'
-              }}
-            >
-              {t('web.page.portfolio')}
-            </Button>
+            <a 
+              href="https://portfolio-website-mekq.vercel.app/"
+              target="_blank">
+              <Button
+                size="lg"
+                variant="outline"
+                className="transition-all duration-300 hover:scale-105"
+                style={{
+                  borderColor: 'var(--mint-cream)',
+                  color: 'var(--dark)',
+                  padding: '1.5rem 3rem'
+                }}
+              >
+                {t('web.page.portfolio')}
+              </Button>
+            </a>
           </div>
         </div>
       </section>

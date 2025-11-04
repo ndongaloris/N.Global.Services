@@ -41,6 +41,19 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
           >
             {t('nav.services')}
           </Button>
+          <Button 
+            variant="ghost" 
+            onClick={() => {
+              if (currentPage === 'about') {
+                document.getElementById('about us')?.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                onNavigate('about');
+              }
+            }}
+            style={{ color: 'var(--davys-gray)' }}
+          >
+            {t('nav.about')}
+          </Button>
           
           <LanguageSwitcher />
         </div>
